@@ -51,3 +51,13 @@ GH_TOKEN='<PAT с правами на SC>' bash scripts/deploy_sc.sh "описа
 `object_spec_items` 1094, `object_types` 14, `profiles` 14, `prices` 2487.
 При изменении данных обновлять здесь и в `scripts/verify_sc.py` (ключ
 `expected`).
+
+## История деплоев
+
+| Дата | Коммит | Что сделано | Верификация |
+|---|---|---|---|
+| 09.11.2026 | `fd1f06d` | Первая выкатка: копия SpaceCam main `a09b615`, basePath `/SC`. Первый билд Pages упал (разовый сбой сборщика), перезапущен через `POST /pages/builds` — прошёл за ~2 мин | `verify_sc.py`: 17 OK / 0 FAIL |
+
+Примечание: локальный клон этого репозитория в песочнице может откатываться
+при перезапуске (как и workspace SpaceCam). Источник истины — этот репозиторий
+на GitHub; восстановление: `git clone https://github.com/andreyshalnov/SC.git`.
