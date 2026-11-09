@@ -98,7 +98,7 @@ print(f"общих: {len(common)}, из них идентичных blob: {len(s
 
 # 2. уникальные файлы
 EXPECTED_ONLY_SP = {"scripts/deploy_spacecam.sh", "scripts/verify_deploy.py"}
-EXPECTED_ONLY_SC = {"docs/SC_NOTES.md", "scripts/deploy_sc.sh", "scripts/verify_sc.py"}
+EXPECTED_ONLY_SC = {"docs/SC_NOTES.md", "scripts/deploy_sc.sh", "scripts/verify_sc.py", "scripts/compare_spacecam_sc.py", "scripts/compare_chunks_deep.py"}
 print(f"\n── 2. Файлы только в одном репо ──")
 unexpected = []
 for p in only_sp:
@@ -111,7 +111,7 @@ for p in only_sc:
     unexpected.append("SC: " + p)
 check(not unexpected, f"нет неожиданных уникальных файлов (найдено: {unexpected if unexpected else '0'})")
 print(f"  ожидаемо только в SpaceCam: {len([p for p in only_sp if p.startswith('docs/backup/')])} (docs/backup/) + 2 скрипта + чанки")
-print(f"  ожидаемо только в SC: 3 (SC-скрипты/notes) + чанки")
+print(f"  ожидаемо только в SC: {len(EXPECTED_ONLY_SC)} (SC-скрипты/notes + скрипты сверки) + чанки")
 
 # 3. общие файлы с разными sha: нормализация должна свести их
 print(f"\n── 3. Общие файлы с разными blob (проверка: различия = только basePath/id сборки) ──")
