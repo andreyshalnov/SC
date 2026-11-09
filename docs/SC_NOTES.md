@@ -57,6 +57,17 @@ GH_TOKEN='<PAT с правами на SC>' bash scripts/deploy_sc.sh "описа
 | Дата | Коммит | Что сделано | Верификация |
 |---|---|---|---|
 | 09.11.2026 | `fd1f06d` | Первая выкатка: копия SpaceCam main `a09b615`, basePath `/SC`. Первый билд Pages упал (разовый сбой сборщика), перезапущен через `POST /pages/builds` — прошёл за ~2 мин | `verify_sc.py`: 17 OK / 0 FAIL |
+| 09.11.2026 | `08e8a18` | Docs fixpoint | `verify_sc.py`: 17 OK / 0 FAIL |
+| 09.11.2026 | см. git log | Сверка идентичности SpaceCam ↔ SC: git-деревья (768 общих файлов: 753 blob-идентичны, остальные 15 равны после нормализации basePath), CSS байт-в-байт, JS-чанки — наборы module-id равны (139=139), basePath зашит в обе сборки; live-рендер 6 роутов (#/, switches, product, about, project-reg, nodes) — DOM идентичен. Скрипты: `scripts/compare_spacecam_sc.py`, `scripts/compare_chunks_deep.py` | идентичность подтверждена |
+
+### Как запустить сверку
+
+```bash
+GH_TOKEN='<PAT>' python3 scripts/compare_spacecam_sc.py     # деревья+нормализация+live-пробы
+GH_TOKEN='<PAT>' python3 scripts/compare_chunks_deep.py     # module-id + basePath в JS-чанках
+```
+
+Скрипты сверяются с live-версиями обоих сайтов и репозиториями через GitHub API.
 
 Примечание: локальный клон этого репозитория в песочнице может откатываться
 при перезапуске (как и workspace SpaceCam). Источник истины — этот репозиторий
